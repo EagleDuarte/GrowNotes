@@ -3,13 +3,13 @@ document.getElementById("btn-criar").addEventListener("click", validarUsuario);
 let listaDeUsuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
 
 let email = document.getElementById("email");
-let senha = document.getElementById("senha");
+let senha1 = document.getElementById("senha1");
 let senha2 = document.getElementById("senha2");
 
-function salvarUsuario() {
+function registrarUsuario() {
   const usuario = {
     email: email.value,
-    senha: senha.value,
+    senha: senha1.value,
   };
 
   listaDeUsuarios.push(usuario);
@@ -30,19 +30,19 @@ function salvarListaUsuariosNoCache() {
 }
 
 function validarUsuario() {
-  if (!email.value || !senha.value) {
+  if (!email.value || !senha1.value) {
     alert("Campos Vazios!");
     return;
   }
 
-  if (senha.value !== senha2.value) {
-    alert("As senhas não são iguais, tente novamente!");
+  if (senha1.value !== senha2.value) {
+    alert("As senhas não coincidem!");
     return;
   }
 
   verificarUsuario();
 
-  salvarUsuario();
+  registrarUsuario();
 }
 
 function verificarUsuario() {
@@ -51,6 +51,6 @@ function verificarUsuario() {
   );
 
   if (resultado) {
-    alert("Usuário ja existente!");
+    alert("Usuário já existente!");
   }
 }

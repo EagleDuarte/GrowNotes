@@ -1,21 +1,21 @@
 document.getElementById("btn-entrar").addEventListener("click", entrar);
 
-document.getElementById("btn-cadastro").addEventListener("click", realizarCadastro);
+document.getElementById("btn-cadastrar").addEventListener("click", realizarCadastro);
 
 let listaDeUsuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
 
 function entrar() {
-  if (!email.value || !senha.value) {
-    alert("Os campos não foram preenchidos!");
+  if (!email.value || !senha1.value) {
+    alert("Os campos não foram preenchidos corretamente!");
     return;
   }
 
   const usuario = listaDeUsuarios.find(
-    (usuario) => usuario.email === email.value && usuario.senha === senha.value
+    (usuario) => usuario.email === email.value && usuario.senha === senha1.value
   );
 
   if (!usuario) {
-    alert("Usuario invalido ou inexistente");
+    alert("Usuário não localizado!");
     return;
   }
 
@@ -27,27 +27,27 @@ function abrirListaDeRecados() {
 }
 
 function realizarCadastro() {
-  window.location.href = "cadastro.html";
+  window.location.href = "signup.html";
   document.getElementById("btn-entrar").addEventListener("click", entrar);
 
   document
-    .getElementById("btn-cadastro")
+    .getElementById("btn-cadastrar")
     .addEventListener("click", realizarCadastro);
   
   let listaDeUsuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
   
   function entrar() {
-    if (!email.value || !senha.value) {
-      alert("Os campos não foram preenchidos!");
+    if (!email.value || !senha1.value) {
+      alert("Os campos não foram preenchidos corretamente!");
       return;
     }
   
     const usuario = listaDeUsuarios.find(
-      (usuario) => usuario.email === email.value && usuario.senha === senha.value
+      (usuario) => usuario.email === email.value && usuario.senha === senha1.value
     );
   
     if (!usuario) {
-      alert("Usuario inválido ou inexistente!");
+      alert("Usuário não localizado!");
       return;
     }
   
@@ -59,6 +59,6 @@ function realizarCadastro() {
   }
   
   function realizarCadastro() {
-    window.location.href = "cadastro.html";
+    window.location.href = "signup.html";
   }
 }
