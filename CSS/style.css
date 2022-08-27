@@ -1,4 +1,4 @@
-@import url('/images/GrowNotes.gif');
+@import url('/img/GrowNotes.gif');
 /* 
 Fonts:
 font-family: 'Montserrat', sans-serif;
@@ -30,7 +30,7 @@ body{
 	background-repeat:no-repeat;
 	background-position:center;
 	background-size:cover;
-	background-image:url('/images/GrowNotes.gif');
+	background-image:url('/img/GrowNotes.gif');
 }
 
 /* Estilo do Banner */
