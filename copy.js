@@ -12,20 +12,20 @@ const setLocalStorage = (dbUsuario) =>
   localStorage.setItem("db_usuario", JSON.stringify(dbUsuario));
 
 const deletarRecado = (index) => {
-  const dbUsuario = lerRecado();
+  const dbUsuario = readClient();
   dbUsuario.splice(index, 1);
   setLocalStorage(dbUsuario);
 };
 
 const atualizarRecado = (index, usuario) => {
-  const dbUsuario = lerRecado();
+  const dbUsuario = readClient();
   dbUsuario[index] = usuario;
   setLocalStorage(dbUsuario);
 };
 
-const lerRecado = () => getLocalStorage();
+const readClient = () => getLocalStorage();
 
-const criarRecado = (usuario) => {
+const createClient = (usuario) => {
   const dbUsuario = getLocalStorage();
   dbUsuario.push(usuario);
   setLocalStorage(dbUsuario);
@@ -50,12 +50,12 @@ const salvarRecado = () => {
     };
     const index = document.getElementById("descricao").dataset.index;
     if (index == "new") {
-      criarRecado(usuario);
-      atualizarTabela();
+      createClient(usuario);
+      updateTable();
       closeModal();
     } else {
       atualizarRecado(index, usuario);
-      atualizarTabela();
+      updateTable();
       closeModal();
     }
   }
@@ -79,8 +79,8 @@ const clearTable = () => {
   rows.forEach((row) => row.parentNode.removeChild(row));
 };
 
-const atualizarTabela = () => {
-  const dbUsuario = lerRecado();
+const updateTable = () => {
+  const dbUsuario = readClient ();
   clearTable();
   dbUsuario.forEach(createRow);
 };
@@ -91,8 +91,8 @@ const fillFields = (usuario) => {
   document.getElementById("descricao").dataset.index = usuario.index;
 };
 
-const editarRecado = (index) => {
-  const usuario = lerRecado()[index];
+const editClient = (index) => {
+  const usuario = readClient()[index];
   usuario.index = index;
   fillFields(usuario);
   openModal();
@@ -103,21 +103,21 @@ const editDelete = (event) => {
     const [action, index] = event.target.id.split("-");
 
     if (action == "edit") {
-      editarRecado(index);
+      editClient(index);
     } else {
-      const usuario = lerRecado()[index];
+      const usuario = readClient()[index];
       const response = confirm(
         `Deseja realmente excluir o recado ${usuario.descricao}?`
       );
       if (response) {
         deletarRecado(index);
-        atualizarTabela();
+        updateTable();
       }
     }
   }
 };
 
-atualizarTabela();
+updateTable();
 
 document.getElementById("adicionarRecado").addEventListener("click", openModal);
 
