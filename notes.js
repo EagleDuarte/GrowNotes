@@ -1,47 +1,67 @@
-const openModal = () =>
-  document.getElementById("modal").classList.add("active");
+document.getElementById("sair").addEventListener("click", sair);
 
-const closeModal = () => {
+document.getElementById("adicionarRecado").addEventListener("click", openModal);
+
+document.getElementById("modalClose").addEventListener("click", closeModal);
+
+document.getElementById("salvar").addEventListener("click", salvarRecado);
+
+document
+  .querySelector("#tabelaRecados>tbody")
+  .addEventListener("click", editDelete);
+
+document.getElementById("cancelar").addEventListener("click", closeModal);
+
+function openModal() {
+  return document.getElementById("modal").classList.add("active");
+}
+
+function closeModal() {
   clearFields();
   document.getElementById("modal").classList.remove("active");
-};
+}
 
-const getLocalStorage = () =>
-  JSON.parse(localStorage.getItem("db_usuario")) ?? [];
-const setLocalStorage = (dbUsuario) =>
-  localStorage.setItem("db_usuario", JSON.stringify(dbUsuario));
+function getLocalStorage() {
+  return JSON.parse(localStorage.getItem("db_usuario") || "[]");
+}
 
-const deletarRecado = (index) => {
+function setLocalStorage(dbUsuario) {
+  return localStorage.setItem("db_usuario", JSON.stringify(dbUsuario));
+}
+
+function deletarRecado(index) {
   const dbUsuario = lerRecado();
   dbUsuario.splice(index, 1);
   setLocalStorage(dbUsuario);
-};
+}
 
-const atualizarRecado = (index, usuario) => {
+function atualizarRecado(index, usuario) {
   const dbUsuario = lerRecado();
   dbUsuario[index] = usuario;
   setLocalStorage(dbUsuario);
-};
+}
 
-const lerRecado = () => getLocalStorage();
+function lerRecado() {
+  return getLocalStorage();
+}
 
-const criarRecado = (usuario) => {
+function criarRecado(usuario) {
   const dbUsuario = getLocalStorage();
   dbUsuario.push(usuario);
   setLocalStorage(dbUsuario);
-};
+}
 
-const isValidFields = () => {
+function isValidFields() {
   return document.getElementById("form").reportValidity();
-};
+}
 
-const clearFields = () => {
+function clearFields() {
   const fields = document.querySelectorAll(".modal-field");
   fields.forEach((field) => (field.value = ""));
   document.getElementById("descricao").dataset.index = "new";
-};
+}
 
-const salvarRecado = () => {
+function salvarRecado() {
   debugger;
   if (isValidFields()) {
     const usuario = {
@@ -59,9 +79,9 @@ const salvarRecado = () => {
       closeModal();
     }
   }
-};
+}
 
-const createRow = (usuario, index) => {
+function createRow(usuario, index) {
   const newRow = document.createElement("tr");
   newRow.innerHTML = `
         <td>${usuario.descricao}</td>
@@ -72,33 +92,33 @@ const createRow = (usuario, index) => {
         </td>
     `;
   document.querySelector("#tabelaRecados>tbody").appendChild(newRow);
-};
+}
 
-const clearTable = () => {
+function clearTable() {
   const rows = document.querySelectorAll("#tabelaRecados>tbody tr");
   rows.forEach((row) => row.parentNode.removeChild(row));
-};
+}
 
-const atualizarTabela = () => {
+function atualizarTabela() {
   const dbUsuario = lerRecado();
   clearTable();
   dbUsuario.forEach(createRow);
-};
+}
 
-const fillFields = (usuario) => {
+function fillFields(usuario) {
   document.getElementById("descricao").value = usuario.descricao;
   document.getElementById("detalhamento").value = usuario.detalhamento;
   document.getElementById("descricao").dataset.index = usuario.index;
-};
+}
 
-const editarRecado = (index) => {
+function editarRecado(index) {
   const usuario = lerRecado()[index];
   usuario.index = index;
   fillFields(usuario);
   openModal();
-};
+}
 
-const editDelete = (event) => {
+function editDelete(event) {
   if (event.target.type == "button") {
     const [action, index] = event.target.id.split("-");
 
@@ -115,18 +135,13 @@ const editDelete = (event) => {
       }
     }
   }
-};
+}
+
+function sair() {
+  localStorage.setItem("usuarioLogado", "");
+  window.location.href = "login.html";
+}
+
+if (!localStorage.getItem("usuarioLogado")) sair();
 
 atualizarTabela();
-
-document.getElementById("adicionarRecado").addEventListener("click", openModal);
-
-document.getElementById("modalClose").addEventListener("click", closeModal);
-
-document.getElementById("salvar").addEventListener("click", salvarRecado);
-
-document
-  .querySelector("#tabelaRecados>tbody")
-  .addEventListener("click", editDelete);
-
-document.getElementById("cancelar").addEventListener("click", closeModal);
