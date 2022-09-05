@@ -1,12 +1,5 @@
 @import url('/img/GrowNotes.gif');
-/* 
-Fonts:
-font-family: 'Montserrat', sans-serif;
-font-family: 'Open Sans', sans-serif;
-font-family: 'Roboto', sans-serif;
-*/
 
-/* Tudo */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -14,14 +7,12 @@ font-family: 'Roboto', sans-serif;
   outline:none;
 }
 
-/* Corpo da Página */
 body{
 	width:100%;
 	height:100vh;
 	margin:0;
 }
 
-/* Estilo do Banner */
 #col-banner {
 	float:left;
 	display:inline-block;
@@ -33,7 +24,6 @@ body{
 	background-image:url('/img/GrowNotes.gif');
 }
 
-/* Estilo do Banner */
 #col-form {
 	float:left;
 	display:inline-block;

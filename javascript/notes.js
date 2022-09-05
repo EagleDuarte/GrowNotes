@@ -73,7 +73,6 @@ function clearFields() {
 }
 
 function salvarRecado() {
-  //debugger;
   if (isValidFields()) {
     const nota = {
       descricao: document.getElementById("descricao").value,
